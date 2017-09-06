@@ -11,22 +11,32 @@ const gunzip = require('gunzip-maybe');
 const version = '1.2.1';
 const TF_TYPE = process.env.TF_TYPE || 'cpu';
 const DOWNLOAD_URL = 'https://storage.googleapis.com/tensorflow/libtensorflow/' +
-  `libtensorflow-${TF_TYPE}-windows-x86_64-${version}.}.tar.gz`;
+  `libtensorflow-${TF_TYPE}-windows-x86_64-${version}.}.zip`;
 const PROTOBUF_URL = 'https://storage.googleapis.com/tensorflow/libtensorflow/' +
   `libtensorflow_proto-${version}.zip`;
 
-if (!fs.existsSync('./tensorflow')) {
-  https.get(DOWNLOAD_URL, (res) => {
-    if (res.statusCode !== 200) {
-      throw new Error(DOWNLOAD_URL + ' ' + res.statusMessage);
-    } else {
-      console.log(DOWNLOAD_URL + ' is finished downloaded.');
-    }
-    res.pipe(gunzip()).pipe(tar.extract('./tensorflow'));
-  });
-} else {
-  console.log('Skiped, tensorflow library and header are exists');
-}
+//if (!fs.existsSync('./tensorflow')) {
+//  https.get(DOWNLOAD_URL, (res) => {
+//    if (res.statusCode !== 200) {
+//      throw new Error(DOWNLOAD_URL + ' ' + res.statusMessage);
+//    } else {
+//      console.log(DOWNLOAD_URL + ' is finished downloaded.');
+//    }
+//    res.pipe(gunzip()).pipe(tar.extract('./tensorflow'));
+//  });
+//} else {
+//  console.log('Skiped, tensorflow library and header are exists');
+//}
+https.get(DOWNLOAD_URL, (res) => {
+  if (res.statusCode !== 200) {
+    throw new Error(DOWNLOAD_URL + ' ' + res.statusMessage);
+  } else {
+    console.log('Done,', DOWNLOAD_URL + ' is finished downloaded.');
+  }
+  res.pipe(unzip.Extract({
+    path: './tensorflow'
+  }));
+});
 
 https.get(PROTOBUF_URL, (res) => {
   if (res.statusCode !== 200) {
