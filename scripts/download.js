@@ -11,7 +11,7 @@ const gunzip = require('gunzip-maybe');
 const version = '1.2.1';
 const TF_TYPE = process.env.TF_TYPE || 'cpu';
 const DOWNLOAD_URL = 'https://storage.googleapis.com/tensorflow/libtensorflow/' +
-  `libtensorflow-${TF_TYPE}-windows-x86_64-${version}.tar.gz`;
+  `libtensorflow-${TF_TYPE}-windows-x86_64-${version}.zip`;
 const PROTOBUF_URL = 'https://storage.googleapis.com/tensorflow/libtensorflow/' +
   `libtensorflow_proto-${version}.zip`;
 
